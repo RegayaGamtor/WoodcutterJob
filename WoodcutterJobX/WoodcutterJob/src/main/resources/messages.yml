@@ -1,0 +1,107 @@
+# ======================================================================
+#  WoodcutterJob - messages.yml (MiniMessage)            by RegayaGamtor
+#  <prefix> otomatis diganti dengan nilai 'prefix' di bawah.
+#  Sebuah pesan bisa berupa teks tunggal atau daftar baris.
+# ======================================================================
+prefix: "<green><bold>Woodcutter</bold></green> <dark_gray>»</dark_gray>"
+
+# --- umum -------------------------------------------------------------
+no-permission: "<prefix> <red>Kamu tidak memiliki izin untuk melakukan ini."
+player-only: "<prefix> <red>Command ini hanya bisa dipakai oleh pemain."
+unknown-subcommand: "<prefix> <red>Subcommand tidak dikenal. Gunakan <yellow>/woodcutter help<red>."
+reload-done: "<prefix> <green>Konfigurasi dan pesan berhasil di-reload. <gray>(<count> sesi aktif dibatalkan)"
+help:
+  - "<prefix> <gold>WoodcutterJob <gray>by RegayaGamtor"
+  - "<yellow>/woodcutter set <gray>- daftarkan pohon (lalu klik block log)"
+  - "<yellow>/woodcutter remove <gray>- hapus pohon terdaftar (lalu klik block)"
+  - "<yellow>/woodcutter info <gray>- info pohon (lihat/klik block)"
+  - "<yellow>/woodcutter list <gray>- daftar pohon terdaftar"
+  - "<yellow>/woodcutter stats <gray>- statistik woodcutter kamu"
+  - "<yellow>/woodcutter cancel <gray>- batalkan mode admin"
+  - "<yellow>/woodcutter reload <gray>- reload plugin"
+
+# --- admin ------------------------------------------------------------
+mode-set: "<prefix> <yellow>Klik sebuah <white>log pohon<yellow> dalam <white><seconds> detik<yellow> untuk mendaftarkannya."
+mode-remove: "<prefix> <yellow>Klik pohon terdaftar dalam <white><seconds> detik<yellow> untuk menghapusnya."
+mode-info: "<prefix> <yellow>Klik pohon terdaftar dalam <white><seconds> detik<yellow> untuk melihat infonya."
+mode-cancelled: "<prefix> <yellow>Mode admin dibatalkan."
+tree-set: "<prefix> <green>Pohon berhasil didaftarkan sebagai titik penebangan. <gray>(<type> @ <location>)"
+tree-removed: "<prefix> <yellow>Pohon berhasil dihapus dari titik penebangan."
+tree-already-registered: "<prefix> <red>Pohon ini sudah terdaftar."
+tree-not-registered: "<prefix> <red>Block ini bukan pohon terdaftar."
+tree-invalid-block: "<prefix> <red>Block ini bukan log pohon yang valid."
+tree-type-disabled: "<prefix> <red>Tipe pohon <white><type><red> dinonaktifkan di config."
+tree-invalid: "<prefix> <red>Pohon terdaftar ini tidak valid lagi (block berubah). Gunakan <yellow>/woodcutter remove<red>."
+info:
+  - "<prefix> <gold>Woodcutting Tree"
+  - "<gray>World: <white><world>"
+  - "<gray>Location: <white><location>"
+  - "<gray>Type: <white><type>"
+  - "<gray>Cooldown: <white><cooldown>"
+  - "<gray>Status: <white><status>"
+list-header: "<prefix> <gray>Registered trees: <white><count> <dark_gray>(<green><valid> valid<dark_gray>, <red><invalid> invalid<dark_gray>, <yellow><unloaded> unloaded<dark_gray>)"
+list-entry: "<dark_gray>#<index> <white><world> <gray><location> <yellow><type> <dark_gray>[<white><status><dark_gray>] <gray><cooldown>"
+list-more: "<gray>... dan <white><count><gray> pohon lainnya."
+tree-protected: "<red>Pohon ini adalah titik penebangan dan tidak bisa dihancurkan."
+
+# --- gameplay ---------------------------------------------------------
+no-axe: "<prefix> <red>Kamu membutuhkan kapak untuk menebang pohon!"
+world-disabled: "<prefix> <red>Pekerjaan penebang dinonaktifkan di world ini."
+tree-in-use: "<prefix> <red>Pohon ini sedang ditebang oleh pemain lain."
+cooldown:
+  - "<prefix> <red>Pohon ini sedang dalam masa pemulihan."
+  - "<gray>Tersedia dalam: <yellow><time>"
+cooldown-no-time: "<prefix> <red>Pohon ini sedang dalam masa pemulihan."
+cancelled: "<prefix> <yellow>Woodcutting dibatalkan."
+failed: "<prefix> <red>Woodcutting gagal! Pohon perlu waktu untuk pulih."
+too-far: "<prefix> <red>Kamu terlalu jauh dari pohon."
+resumed: "<prefix> <green>Woodcutting dilanjutkan."
+hit-actionbar: "<green>✔ Tepat! <gray>Progress: <white><percent>%"
+miss-actionbar: "<red>✘ Meleset!"
+miss-penalty-actionbar: "<red>✘ Meleset! <gray>Progress -<penalty>% <dark_gray>(<white><percent>%<dark_gray>)"
+success:
+  - ""
+  - "<green><bold>WOODCUTTING BERHASIL!"
+  - "<gray>Kamu mendapatkan <green><rewards><gray>."
+  - "<gray>+<yellow><xp> <gray>Woodcutter XP"
+inventory-full: "<prefix> <yellow>Inventory penuh, reward dijatuhkan ke tanah."
+money-received: "<prefix> <gray>Kamu menerima <gold><money><gray>."
+level-up:
+  - "<green><bold>LEVEL UP!"
+  - "<gray>Woodcutter Level: <yellow><level>"
+stats:
+  - "<prefix> <gold>Statistik Woodcutter <gray>- <white><player>"
+  - "<gray>Level: <yellow><level> <dark_gray>(<white><xp><gray> XP<dark_gray>)"
+  - "<gray>XP menuju level berikutnya: <white><xp_next>"
+  - "<gray>Pohon ditebang: <white><trees>"
+  - "<gray>Successful hits: <white><hits>"
+  - "<gray>Total reward item: <white><rewards>"
+  - "<gray>Total earnings: <white><earnings>"
+
+# --- teks item GUI ----------------------------------------------------
+# Placeholder: <tree> <hits> <required> <percent> <progress_bar>
+gui:
+  filler-name: "<dark_gray>Woodcutter"
+  filler-lore:
+    - "<gray>Klik slot <green>HIJAU<gray>!"
+  red-name: "<red><bold>MISS"
+  red-lore:
+    - "<gray>Slot ini salah."
+    - "<red>Cari slot hijau!"
+  green-name: "<green><bold>KLIK SEKARANG!"
+  green-lore:
+    - "<gray>Klik target hijau ini"
+    - "<gray>untuk menebang pohon."
+  info-name: "<gold><bold>Woodcutting"
+  info-lore:
+    - "<gray>Tree: <white><tree>"
+    - "<gray>Successful Hits: <green><hits><gray>/<green><required>"
+    - ""
+    - "<gray>Progress: <white><percent>%"
+    - "<progress_bar>"
+    - ""
+    - "<yellow>Click the GREEN target!"
+  meter-filled-name: "<yellow>Progress: <white><percent>%"
+  meter-empty-name: "<dark_gray>Progress: <gray><percent>%"
+  meter-lore:
+    - "<gray>Successful Hits: <white><hits>/<required>"
