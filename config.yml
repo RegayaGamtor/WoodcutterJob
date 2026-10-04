@@ -1,0 +1,278 @@
+# ======================================================================
+#  WoodcutterJob 1.2 - config.yml                     by RegayaGamtor
+#  Paper 1.21.11 | Java 21
+#  Pesan-pesan ada di messages.yml (MiniMessage).
+#  Nilai yang salah akan diganti default + warning di console.
+#
+#  Cooldown dan reward bisa diatur lewat command di dalam server
+#  (/woodcutter cooldown ..., /woodcutter reward ...) dan akan otomatis
+#  ditulis ke file ini.
+# ======================================================================
+
+plugin:
+  debug: false
+
+# ---------------------------------------------------------------------
+# Penyimpanan data. Perubahan 'type' memerlukan restart server.
+#   SQLITE : plugins/WoodcutterJob/database.db (default)
+#   YAML   : plugins/WoodcutterJob/data/<uuid>.yml + data/regions.yml
+# Jika SQLite gagal dibuka, plugin otomatis fallback ke YAML.
+# ---------------------------------------------------------------------
+storage:
+  type: SQLITE
+  sqlite-file: database.db
+  autosave-interval-seconds: 300
+
+# ---------------------------------------------------------------------
+# World. 'enabled' kosong = semua world aktif. 'disabled' selalu menang.
+# ---------------------------------------------------------------------
+worlds:
+  enabled:
+    - world
+    - world_nether
+    - world_the_end
+  disabled: []
+
+# ---------------------------------------------------------------------
+# Region pohon. Region dibuat lewat command (lihat /woodcutter help):
+#   /woodcutter pos1, /woodcutter pos2, /woodcutter region create <nama> <tipe>
+#   /woodcutter region create <nama> <tipe> <x1 y1 z1 x2 y2 z2> [world]
+# Pemain memakai KAPAK lalu mengarah ke UDARA / AIR di dalam area region
+# dan klik. Klik pada block (log, tanah, dll) TIDAK memulai apa pun.
+# ---------------------------------------------------------------------
+region:
+  interact-range: 4.5              # jarak pandang (block) yang dicek ke area region (1-6)
+  click: RIGHT                     # RIGHT | LEFT | BOTH
+
+# ---------------------------------------------------------------------
+# Menebang otomatis. Setelah minigame GUI selesai, GUI menutup dan pemain
+# memukul sendiri tanpa menekan apa pun. Tiap pukulan menambah progress
+# (boss bar / action bar) sampai 100% lalu reward diberikan.
+# ---------------------------------------------------------------------
+chop:
+  hits-required: 8                 # jumlah pukulan otomatis untuk 100%
+  interval-ticks: 10               # jeda antar pukulan (20 tick = 1 detik)
+  show-bossbar: true
+  bossbar-color: GREEN             # PINK | BLUE | RED | GREEN | YELLOW | PURPLE | WHITE
+  bossbar-overlay: PROGRESS        # PROGRESS | NOTCHED_6 | NOTCHED_10 | NOTCHED_12 | NOTCHED_20
+  show-actionbar: true
+
+# Tipe pohon yang boleh dipakai pada region
+tree-types:
+  OAK:      { enabled: true }
+  BIRCH:    { enabled: true }
+  SPRUCE:   { enabled: true }
+  JUNGLE:   { enabled: true }
+  ACACIA:   { enabled: true }
+  DARK_OAK: { enabled: true }
+  MANGROVE: { enabled: true }
+  CHERRY:   { enabled: true }
+
+# Kapak yang boleh dipakai (harus di main hand)
+axes:
+  WOODEN_AXE:    { enabled: true }
+  STONE_AXE:     { enabled: true }
+  IRON_AXE:      { enabled: true }
+  GOLDEN_AXE:    { enabled: true }
+  DIAMOND_AXE:   { enabled: true }
+  NETHERITE_AXE: { enabled: true }
+
+# ---------------------------------------------------------------------
+# Minigame GUI
+# ---------------------------------------------------------------------
+minigame:
+  title: "<dark_green>🌲 Woodcutting <dark_gray>- <white><tree>"
+  rows: 3                          # 3..6 (3 = 27 slot, 5 = 45 slot)
+  required-successes: 5            # jumlah klik hijau agar minigame selesai
+  target-slots: 7                  # jumlah slot di baris target (3..9)
+  max-distance: 8.0                # jarak maksimal pemain dari area region saat bermain/menebang (0 = nonaktif)
+  min-click-interval-ms: 120       # anti-spam klik
+  different-position-each-round: true
+  moving-target:
+    enabled: false                 # true = slot hijau bergerak bolak-balik
+    speed-ticks: 3                 # 1 tick = 50ms
+  miss:
+    mode: NO_PROGRESS              # NO_PROGRESS | LOSE_PROGRESS | FAIL_MINIGAME
+    penalty-percent: 5             # dipakai jika mode LOSE_PROGRESS (mengurangi progress minigame)
+    randomize-target: true         # pindahkan target setelah miss
+  close-behavior: CANCEL           # CANCEL | FAIL | RESUME
+  resume-timeout-seconds: 60       # batas waktu untuk RESUME
+
+progress-bar:
+  length: 20
+  filled: "█"
+  empty: "░"
+  filled-color: GREEN              # nama warna MiniMessage atau hex (#55FF55)
+  empty-color: DARK_GRAY
+
+gui:
+  filler-material: GRAY_STAINED_GLASS_PANE
+  red-material: RED_STAINED_GLASS_PANE
+  green-material: LIME_STAINED_GLASS_PANE
+  use-held-axe-icon: true          # ikon info = kapak yang dipegang (fallback WOODEN_AXE)
+
+# ---------------------------------------------------------------------
+# Cooldown region (per region, bukan per pemain).
+# Disimpan sebagai timestamp -> persisten saat restart/reload.
+# Lewat command: /woodcutter cooldown <default|fail|all|TIPE> <waktu>
+# 'per-type' mengalahkan 'default-seconds'; pakai 'all' untuk mengubah semuanya.
+# ---------------------------------------------------------------------
+cooldown:
+  default-seconds: 300
+  fail-seconds: 60                 # cooldown saat minigame gagal (FAIL_MINIGAME / close FAIL). 0 = tanpa cooldown
+  per-type:                        # opsional, override per tipe pohon
+    OAK: 300
+    BIRCH: 300
+    SPRUCE: 300
+    JUNGLE: 300
+    ACACIA: 300
+    DARK_OAK: 300
+    MANGROVE: 300
+    CHERRY: 300
+  show-message: true
+  show-time: true
+
+# ---------------------------------------------------------------------
+# Job XP & level
+# ---------------------------------------------------------------------
+job:
+  xp:
+    OAK: 25
+    BIRCH: 30
+    SPRUCE: 35
+    JUNGLE: 40
+    ACACIA: 35
+    DARK_OAK: 40
+    MANGROVE: 45
+    CHERRY: 50
+
+levels:        # level: total XP yang dibutuhkan
+  1: 0
+  2: 100
+  3: 250
+  4: 500
+  5: 1000
+  6: 1750
+  7: 2750
+  8: 4000
+  9: 6000
+  10: 9000
+
+# ---------------------------------------------------------------------
+# Reward per tipe pohon. Bisa diatur lewat command:
+#   /woodcutter reward add <TIPE> <item|hand> <jumlah|min-max> [chance]
+#   'hand' = salin item di tangan apa adanya (nama, lore, enchant, dll).
+#   material          : item apa saja dari Minecraft
+#   item              : (dibuat otomatis oleh 'reward add hand') data item custom
+#   amount            : jumlah tetap
+#   min / max         : jumlah acak (dipakai jika 'amount' tidak ada)
+#   chance            : 0-100 (default 100)
+# Jika inventory penuh, item dijatuhkan di sekitar pemain.
+# ---------------------------------------------------------------------
+rewards:
+  OAK:
+    items:
+      - { material: OAK_LOG, amount: 8, chance: 100 }
+      - { material: STICK, min: 1, max: 3, chance: 30 }
+      - { material: APPLE, amount: 1, chance: 10 }
+      - { material: OAK_SAPLING, amount: 1, chance: 15 }
+  BIRCH:
+    items:
+      - { material: BIRCH_LOG, amount: 8, chance: 100 }
+      - { material: STICK, min: 1, max: 3, chance: 30 }
+      - { material: BIRCH_SAPLING, amount: 1, chance: 15 }
+  SPRUCE:
+    items:
+      - { material: SPRUCE_LOG, amount: 8, chance: 100 }
+      - { material: STICK, min: 1, max: 3, chance: 30 }
+      - { material: SPRUCE_SAPLING, amount: 1, chance: 15 }
+  JUNGLE:
+    items:
+      - { material: JUNGLE_LOG, amount: 10, chance: 100 }
+      - { material: COCOA_BEANS, min: 1, max: 2, chance: 20 }
+      - { material: JUNGLE_SAPLING, amount: 1, chance: 15 }
+  ACACIA:
+    items:
+      - { material: ACACIA_LOG, amount: 8, chance: 100 }
+      - { material: ACACIA_SAPLING, amount: 1, chance: 15 }
+  DARK_OAK:
+    items:
+      - { material: DARK_OAK_LOG, amount: 8, chance: 100 }
+      - { material: APPLE, amount: 1, chance: 12 }
+      - { material: DARK_OAK_SAPLING, amount: 1, chance: 15 }
+  MANGROVE:
+    items:
+      - { material: MANGROVE_LOG, amount: 8, chance: 100 }
+      - { material: MANGROVE_PROPAGULE, amount: 1, chance: 20 }
+  CHERRY:
+    items:
+      - { material: CHERRY_LOG, amount: 8, chance: 100 }
+      - { material: CHERRY_SAPLING, amount: 1, chance: 15 }
+
+# Uang (hanya jika Vault + plugin economy terpasang). Vault bersifat OPSIONAL.
+reward-money:
+  enabled: false
+  OAK: 25.0
+  BIRCH: 30.0
+  SPRUCE: 35.0
+  JUNGLE: 40.0
+  ACACIA: 35.0
+  DARK_OAK: 40.0
+  MANGROVE: 45.0
+  CHERRY: 50.0
+
+# ---------------------------------------------------------------------
+# Efek. Nama sound memakai gaya enum (ENTITY_PLAYER_LEVELUP) atau key
+# Minecraft (minecraft:entity.player.levelup). Particle: nama enum Paper.
+# ---------------------------------------------------------------------
+sounds:
+  success:                         # klik hijau & tiap pukulan otomatis (didengar pemain)
+    enabled: true
+    sound: ENTITY_PLAYER_ATTACK_STRONG
+    volume: 1.0
+    pitch: 1.2
+  wood-hit:                        # suara kayu dipukul (di depan pemain)
+    enabled: true
+    sound: BLOCK_WOOD_HIT
+    volume: 1.0
+    pitch: 0.9
+  fail:                            # klik merah / gagal
+    enabled: true
+    sound: BLOCK_NOTE_BLOCK_BASS
+    volume: 1.0
+    pitch: 0.8
+  complete:                        # penebangan selesai 100%
+    enabled: true
+    sound: ENTITY_PLAYER_LEVELUP
+    volume: 1.0
+    pitch: 1.0
+  level-up:
+    enabled: true
+    sound: UI_TOAST_CHALLENGE_COMPLETE
+    volume: 1.0
+    pitch: 1.0
+  cooldown-denied:
+    enabled: true
+    sound: ENTITY_VILLAGER_NO
+    volume: 0.8
+    pitch: 1.0
+
+particles:
+  hit-block:
+    enabled: true
+    particle: BLOCK
+    count: 18
+    spread: 0.25
+    speed: 0.05
+  hit-crit:
+    enabled: true
+    particle: CRIT
+    count: 8
+    spread: 0.3
+    speed: 0.1
+  complete:
+    enabled: true
+    particle: HAPPY_VILLAGER
+    count: 25
+    spread: 0.6
+    speed: 0.0

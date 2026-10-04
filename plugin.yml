@@ -1,0 +1,47 @@
+name: WoodcutterJob
+version: '${project.version}'
+main: com.regayagamtor.woodcutterjob.WoodcutterJob
+api-version: '1.21'
+authors: [RegayaGamtor]
+description: Woodcutter job - region based trees, GUI minigame and automatic chopping with a persistent cooldown.
+softdepend: [Vault, PlaceholderAPI]
+
+commands:
+  woodcutter:
+    description: Woodcutter Job command
+    usage: /woodcutter <pos1|pos2|region|list|cooldown|reward|give|reload|stats|help>
+    aliases: [wcjob]
+
+permissions:
+  woodcutter.use:
+    description: Allows using woodcutting regions and viewing own stats
+    default: true
+  woodcutter.region:
+    description: Allows creating, removing and editing regions (and pos1/pos2)
+    default: op
+  woodcutter.cooldown:
+    description: Allows changing cooldowns in-game
+    default: op
+  woodcutter.reward:
+    description: Allows changing rewards in-game
+    default: op
+  woodcutter.give:
+    description: Allows giving rewards and items to players
+    default: op
+  woodcutter.reload:
+    description: Allows reloading the plugin
+    default: op
+  woodcutter.info:
+    description: Allows viewing region info and the region list
+    default: op
+  woodcutter.admin:
+    description: All admin permissions
+    default: op
+    children:
+      woodcutter.use: true
+      woodcutter.region: true
+      woodcutter.cooldown: true
+      woodcutter.reward: true
+      woodcutter.give: true
+      woodcutter.reload: true
+      woodcutter.info: true

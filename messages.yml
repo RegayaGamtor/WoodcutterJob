@@ -1,0 +1,166 @@
+# ======================================================================
+#  WoodcutterJob - messages.yml (MiniMessage)            by RegayaGamtor
+#  <prefix> otomatis diganti dengan nilai 'prefix' di bawah.
+#  Sebuah pesan bisa berupa teks tunggal atau daftar baris.
+# ======================================================================
+prefix: "<green><bold>Woodcutter</bold></green> <dark_gray>»</dark_gray>"
+
+# --- umum -------------------------------------------------------------
+no-permission: "<prefix> <red>Kamu tidak memiliki izin untuk melakukan ini."
+player-only: "<prefix> <red>Command ini hanya bisa dipakai oleh pemain."
+unknown-subcommand: "<prefix> <red>Subcommand tidak dikenal. Gunakan <yellow>/woodcutter help<red>."
+reload-done: "<prefix> <green>Konfigurasi dan pesan berhasil di-reload. <gray>(<count> sesi aktif dibatalkan)"
+invalid-type: "<prefix> <red>Tipe pohon tidak valid. Pilihan: <white><types>"
+invalid-amount: "<prefix> <red>Jumlah tidak valid. Contoh: <white>5<red> atau <white>2-5"
+invalid-coords: "<prefix> <red>Koordinat tidak valid. Gunakan angka atau <white>~<red> (relatif)."
+invalid-duration: "<prefix> <red>Durasi tidak valid. Contoh: <white>300<red>, <white>5m<red>, <white>1h30m<red>, <white>2d"
+player-not-found: "<prefix> <red>Pemain <white><player><red> tidak ditemukan / tidak online."
+help:
+  - "<prefix> <gold>WoodcutterJob 1.2 <gray>by RegayaGamtor"
+  - "<gold>Region <gray>(area pohon)"
+  - "<yellow>/woodcutter pos1|pos2 [x y z] <gray>- pilih sudut region"
+  - "<yellow>/woodcutter region create <nama> <tipe> <gray>- buat region dari pos1/pos2"
+  - "<yellow>/woodcutter region create <nama> <tipe> <x1 y1 z1 x2 y2 z2> [world]"
+  - "<yellow>/woodcutter region remove|info|settype <nama> ... <gray>- kelola region"
+  - "<yellow>/woodcutter list <gray>- daftar region"
+  - "<gold>Cooldown"
+  - "<yellow>/woodcutter cooldown <gray>- lihat cooldown saat ini"
+  - "<yellow>/woodcutter cooldown <default|fail|all|TIPE> <waktu> <gray>- contoh: 5m, 90, 1h30m"
+  - "<yellow>/woodcutter cooldown reset <region|all> <gray>- reset cooldown region"
+  - "<gold>Reward"
+  - "<yellow>/woodcutter reward list <TIPE>"
+  - "<yellow>/woodcutter reward add <TIPE> <item|hand> <jumlah|min-max> [chance]"
+  - "<yellow>/woodcutter reward remove <TIPE> <nomor>"
+  - "<yellow>/woodcutter reward money <TIPE> <jumlah> | enable | disable"
+  - "<yellow>/woodcutter give <player> <TIPE|item> [jumlah] <gray>- beri reward / item"
+  - "<yellow>/woodcutter stats <gray>- statistik kamu    <yellow>/woodcutter reload"
+
+# --- usage ------------------------------------------------------------
+usage-pos: "<prefix> <red>Gunakan: <yellow>/woodcutter pos1|pos2 [x y z]"
+usage-region: "<prefix> <red>Gunakan: <yellow>/woodcutter region <create|remove|settype|info|list> ..."
+usage-region-create:
+  - "<prefix> <red>Gunakan salah satu:"
+  - "<yellow>/woodcutter region create <nama> <tipe> <gray>(pakai pos1 & pos2)"
+  - "<yellow>/woodcutter region create <nama> <tipe> <x1> <y1> <z1> <x2> <y2> <z2> [world]"
+usage-cooldown: "<prefix> <red>Gunakan: <yellow>/woodcutter cooldown <default|fail|all|TIPE> <waktu> <red>atau <yellow>reset <region|all>"
+usage-reward: "<prefix> <red>Gunakan: <yellow>/woodcutter reward <list|add|remove|money> ... <gray>(lihat /woodcutter help)"
+usage-give: "<prefix> <red>Gunakan: <yellow>/woodcutter give <player> <TIPE|item> [jumlah]"
+
+# --- region -----------------------------------------------------------
+pos-set: "<prefix> <green>Posisi <white><index><green> diset ke <white><location> <gray>(<world>)"
+selection-incomplete: "<prefix> <red>Set <yellow>/woodcutter pos1<red> dan <yellow>/woodcutter pos2<red> dulu, atau tulis koordinatnya langsung."
+selection-world-mismatch: "<prefix> <red>pos1 dan pos2 harus berada di world yang sama."
+world-required: "<prefix> <red>Dari console, tambahkan nama world di akhir command."
+world-not-found: "<prefix> <red>World <white><world><red> tidak ditemukan."
+region-invalid-name: "<prefix> <red>Nama region hanya boleh huruf, angka, <white>_<red> dan <white>-<red> (maks 32 karakter)."
+region-exists: "<prefix> <red>Region <white><name><red> sudah ada."
+region-not-found: "<prefix> <red>Region <white><name><red> tidak ditemukan."
+region-created:
+  - "<prefix> <green>Region <white><name><green> dibuat. <gray>(<type>)"
+  - "<gray>World: <white><world> <gray>| Area: <white><coords> <gray>(<volume> block)"
+  - "<gray>Pakai kapak, arahkan ke <white>udara/air<gray> di area ini lalu klik kanan."
+region-removed: "<prefix> <yellow>Region <white><name><yellow> dihapus."
+region-type-set: "<prefix> <green>Tipe region <white><name><green> sekarang <white><type><green>."
+region-gone: "<prefix> <red>Region ini sudah dihapus."
+region-info:
+  - "<prefix> <gold>Region <white><name>"
+  - "<gray>World: <white><world>"
+  - "<gray>Area: <white><coords> <gray>(<volume> block)"
+  - "<gray>Tipe: <white><type>"
+  - "<gray>Cooldown: <white><cooldown>"
+  - "<gray>Status: <white><status>"
+region-list-header: "<prefix> <gray>Region terdaftar: <white><count>"
+region-list-entry: "<dark_gray>#<index> <white><name> <gray><world> <yellow><type> <dark_gray>[<gray><coords><dark_gray>] <gray><cooldown>"
+region-list-more: "<gray>... dan <white><count><gray> region lainnya."
+
+# --- cooldown ---------------------------------------------------------
+invalid-cooldown-target: "<prefix> <red>Target tidak valid. Pakai <white>default<red>, <white>fail<red>, <white>all<red> atau tipe: <white><types>"
+cooldown-set: "<prefix> <green>Cooldown <white><target><green> diset ke <white><time><green>."
+cooldown-show:
+  - "<prefix> <gold>Cooldown saat ini"
+  - "<gray>Default: <white><default> <gray>| Gagal: <white><fail>"
+  - "<gray>Per tipe: <white><types>"
+cooldown-reset: "<prefix> <green>Cooldown region <white><name><green> direset."
+cooldown-reset-all: "<prefix> <green>Cooldown <white><count><green> region direset."
+
+# --- reward -----------------------------------------------------------
+reward-list-header: "<prefix> <gold>Reward <white><type>"
+reward-list-entry: "<dark_gray>#<index> <white><item> <gray>x<amount> <dark_gray>(<yellow><chance>%<dark_gray>) <dark_gray>[<gray><material><dark_gray>]"
+reward-list-money: "<gray>Uang: <gold><money> <dark_gray>(<white><enabled><dark_gray>)"
+reward-added: "<prefix> <green>Reward ditambah ke <white><type><green>: <white><item> x<amount> <gray>(<chance>%) <dark_gray>#<index>"
+reward-removed: "<prefix> <yellow>Reward <white><item><yellow> dihapus dari <white><type><yellow>."
+reward-last-item: "<prefix> <red>Tidak bisa menghapus item terakhir. Tambahkan reward baru dulu."
+reward-invalid-index: "<prefix> <red>Nomor reward tidak valid (1-<max>)."
+reward-invalid-item: "<prefix> <red>Item <white><item><red> tidak valid."
+reward-invalid-chance: "<prefix> <red>Chance harus angka 0-100."
+reward-hand-empty: "<prefix> <red>Pegang item yang ingin dijadikan reward di main hand."
+reward-money-set: "<prefix> <green>Uang reward <white><type><green> diset ke <gold><money><green>."
+reward-money-toggle: "<prefix> <green>Reward uang sekarang <white><state><green>."
+reward-money-disabled: "<prefix> <yellow>Reward uang masih OFF. Aktifkan: <white>/woodcutter reward money enable"
+reward-vault-missing: "<prefix> <yellow>Vault / plugin economy tidak terdeteksi, uang tidak akan diberikan."
+give-reward-sender: "<prefix> <green>Reward <white><tree><green> diberikan ke <white><player><green>: <gray><rewards>"
+give-reward-target: "<prefix> <gray>Kamu menerima reward <white><tree><gray>: <green><rewards>"
+give-item-sender: "<prefix> <green>Memberikan <white><item><green> ke <white><player><green>."
+give-item-target: "<prefix> <gray>Kamu menerima <green><item><gray>."
+
+# --- gameplay ---------------------------------------------------------
+no-axe: "<prefix> <red>Kamu membutuhkan kapak untuk menebang pohon!"
+world-disabled: "<prefix> <red>Pekerjaan penebang dinonaktifkan di world ini."
+tree-in-use: "<prefix> <red>Area pohon ini sedang dipakai pemain lain."
+tree-type-disabled: "<prefix> <red>Tipe pohon <white><type><red> dinonaktifkan di config."
+cooldown:
+  - "<prefix> <red>Pohon ini sedang dalam masa pemulihan."
+  - "<gray>Tersedia dalam: <yellow><time>"
+cooldown-no-time: "<prefix> <red>Pohon ini sedang dalam masa pemulihan."
+cancelled: "<prefix> <yellow>Woodcutting dibatalkan."
+failed: "<prefix> <red>Woodcutting gagal! Pohon perlu waktu untuk pulih."
+too-far: "<prefix> <red>Kamu terlalu jauh dari area pohon."
+resumed: "<prefix> <green>Woodcutting dilanjutkan."
+hit-actionbar: "<green>✔ Tepat! <gray><hits>/<required>"
+miss-actionbar: "<red>✘ Meleset!"
+miss-penalty-actionbar: "<red>✘ Meleset! <gray>(<hits>/<required>)"
+
+# Setelah minigame selesai, pemain memukul otomatis. Placeholder: <tree> <percent> <progress_bar>
+chop-start: "<green>Minigame selesai! <yellow>Mulai menebang..."
+chop-bossbar: "<gold>🪓 Menebang <white><tree> <dark_gray>- <green><percent>%"
+chop-actionbar: "<gray>Menebang <progress_bar> <white><percent>%"
+chop-no-axe: "<prefix> <red>Kamu melepas kapak, penebangan dibatalkan."
+
+success:
+  - ""
+  - "<green><bold>WOODCUTTING BERHASIL!"
+  - "<gray>Kamu mendapatkan <green><rewards><gray>."
+  - "<gray>+<yellow><xp> <gray>Woodcutter XP"
+inventory-full: "<prefix> <yellow>Inventory penuh, reward dijatuhkan ke tanah."
+money-received: "<prefix> <gray>Kamu menerima <gold><money><gray>."
+level-up:
+  - "<green><bold>LEVEL UP!"
+  - "<gray>Woodcutter Level: <yellow><level>"
+stats:
+  - "<prefix> <gold>Statistik Woodcutter <gray>- <white><player>"
+  - "<gray>Level: <yellow><level> <dark_gray>(<white><xp><gray> XP<dark_gray>)"
+  - "<gray>XP menuju level berikutnya: <white><xp_next>"
+  - "<gray>Pohon ditebang: <white><trees>"
+  - "<gray>Successful hits: <white><hits>"
+  - "<gray>Total reward item: <white><rewards>"
+  - "<gray>Total earnings: <white><earnings>"
+
+# --- teks item GUI (minigame). GUI tidak menampilkan progress penebangan. -----
+# Placeholder: <tree>
+gui:
+  filler-name: "<dark_gray>Woodcutter"
+  filler-lore:
+    - "<gray>Klik slot <green>HIJAU<gray>!"
+  red-name: "<red><bold>MISS"
+  red-lore:
+    - "<gray>Slot ini salah."
+    - "<red>Cari slot hijau!"
+  green-name: "<green><bold>KLIK SEKARANG!"
+  green-lore:
+    - "<gray>Klik target hijau ini."
+  info-name: "<gold><bold>Woodcutting"
+  info-lore:
+    - "<gray>Tree: <white><tree>"
+    - ""
+    - "<yellow>Klik target HIJAU sampai minigame selesai."
+    - "<gray>Setelah itu kamu menebang otomatis."
